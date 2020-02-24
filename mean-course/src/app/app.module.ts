@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule } from '@angular/material'
 import { HeaderComponent } from './header/header.component';
+import { PostsService } from './posts/post.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,7 @@ import { HeaderComponent } from './header/header.component';
     MatToolbarModule,
     MatExpansionModule
   ],
-  providers: [],
+  providers: [ PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
