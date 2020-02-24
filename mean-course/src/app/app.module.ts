@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { PostCreateComponent } from './posts/post-create/post-create.component'
 import { PostListComponent } from './posts/post-list/post-list.component'
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,7 +15,11 @@ import { FormsModule } from '@angular/forms'
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
