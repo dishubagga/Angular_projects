@@ -1,2 +1,2 @@
 # Angular_projects
-Projects to learn ANgular
+Projects to learn Angular
