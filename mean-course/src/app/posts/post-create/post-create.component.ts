@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 
 export class PostCreateComponent{
   newPost = ""
-  onAddPost(){
-    this.newPost = "USers clicked\'s the button";
+  onAddPost(postinput: HTMLInputElement){
+    this.newPost = postinput.value;
   }
 }
