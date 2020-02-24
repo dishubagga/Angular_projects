@@ -1,3 +1,3 @@
-<textarea [value] = "newPost" #postInput></textarea>
-<button (click)="onAddPost(postInput)">Save this</button>
+<textarea [(ngModel)] = "enteredValue"></textarea>
+<button (click)="onAddPost()">Save this</button>
 <p>{{newPost}}</p>
