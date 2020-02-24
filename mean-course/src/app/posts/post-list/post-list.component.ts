@@ -9,8 +9,6 @@ import { Component } from '@angular/core';
 
 export class PostListComponent{
   posts = [
-    {title: 'First Post', content: 'First Post content' },
-    {title: 'Second Post', content: 'Second Post content' },
-    {title: 'Third Post', content: 'Third Post content' }
+
   ]
 }
