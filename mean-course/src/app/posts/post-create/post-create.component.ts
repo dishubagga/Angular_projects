@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
 })
 
 export class PostCreateComponent{
+  newPost = ""
   onAddPost(){
-    alert("Hi from post create app");
+    this.newPost = "USers clicked\'s the button";
   }
 }
