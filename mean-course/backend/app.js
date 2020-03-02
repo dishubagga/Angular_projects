@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const Post = require('./models/post');
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://dishu:Q61CxJv21FxqpI1M@cluster0-h5kbk.mongodb.net/node-angular?retryWrites=true&w=majority").then(()=> {
+mongoose.connect("mongodb+srv://dishu:Q61CxJv21FxqpI1M@cluster0-h5kbk.mongodb.net/node-angular?retryWrites=true&w=majority",  { useNewUrlParser: true }).then(()=> {
   console.log('connect to db');})
   .catch(()=>{
     console.log('connection failed')
@@ -40,21 +40,14 @@ app.post("/api/posts", (req, res, next)=> {
 
 
 app.get('/api/posts' , (req, res, next) => {
-    const posts =   [
-        { id: 'fshhsh123',
-          title: 'First-Server-Side-Code',
-          content: 'this is coming from server'
-        },
-        { id: '12fshhsh123',
-          title: 'Second-Server-Side-Code',
-          content: 'this is coming from server'
-        }
-    ];
-    return res.status(200).json({ // for the success 
-        message: ' Posts fetched Succesfully',
-        posts: posts
-    });
-
+   Post.find().then(documents => {
+     console.log(documents);
+      res.status(200).json({ // for the success 
+      message: ' Posts fetched Succesfully',
+      posts: documents
+      });
+  });
+    
 });
 
 module.exports = app;
