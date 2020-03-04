@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const Post = require('./models/post');
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://dishu:Q61CxJv21FxqpI1M@cluster0-h5kbk.mongodb.net/node-angular?retryWrites=true&w=majority",  { useNewUrlParser: true }).then(()=> {
+mongoose.connect("mongodb+srv://dishu:Q61CxJv21FxqpI1M@cluster0-h5kbk.mongodb.net/node-angular?retryWrites=true&w=majority",  { useUnifiedTopology: true, useNewUrlParser: true }).then(()=> {
   console.log('connect to db');})
   .catch(()=>{
     console.log('connection failed')
@@ -28,11 +28,12 @@ app.post("/api/posts", (req, res, next)=> {
     title: req.body.title,
     content: req.body.content
   })
-  post.save();
-  console.log(Post);
-  res.status(201).json({
+  post.save().then(createdPost =>{
+    res.status(201).json({
     message: 'Post Added Sucessfully',
-    posts: post
+    postId: createdPost._id
+  });
+  
   })
 })
 
@@ -51,8 +52,12 @@ app.get('/api/posts' , (req, res, next) => {
 });
 
 app.delete("/api/posts/:id", (req, res, next)=>{
-  console.log(req.params.id);
-  res.status(200).json({ message: "Post Deleted"});
+  //console.log(req.params.id);
+  Post.deleteOne({ _id: req.params.id }).then(result=> {
+    console.log(result);
+    res.status(200).json({ message: "Post Deleted"});
+  })
+  
 })
 
 module.exports = app;
