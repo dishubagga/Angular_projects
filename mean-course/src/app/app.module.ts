@@ -9,6 +9,7 @@ import  { HttpClientModule } from "@angular/common/http";
 import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule } from '@angular/material'
 import { HeaderComponent } from './header/header.component';
 import { PostsService } from './posts/post.service';
+import { AppRoutingModule } from './routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { PostsService } from './posts/post.service';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
