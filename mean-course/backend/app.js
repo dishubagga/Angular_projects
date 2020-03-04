@@ -41,7 +41,7 @@ app.post("/api/posts", (req, res, next)=> {
 
 app.get('/api/posts' , (req, res, next) => {
    Post.find().then(documents => {
-     console.log(documents);
+     //console.log(documents);
       res.status(200).json({ // for the success 
       message: ' Posts fetched Succesfully',
       posts: documents
@@ -51,10 +51,12 @@ app.get('/api/posts' , (req, res, next) => {
 });
 
 app.delete("/api/posts/:id", (res, req, next)=> {
-  console.log(req.params.id);
-  res.status(200).json({
-    message: "Post Delete!"
-  });
+  //console.log(req.params.id);
+  Post.deleteOne({_id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Post Delete!" });
+  })
+  
 })
 
 module.exports = app;
