@@ -22,6 +22,11 @@ export class PostsService {
   getPostupdateListner(){
     return this.postsUpdated.asObservable();
   }
+
+  getPost(id: string){
+    return{...this.posts.find(p => p._id == id)};
+  }
+
   addPost(title: string, content: string){
     const post: Post = {  _id: null, title:title, content: content};
     this.http
@@ -34,6 +39,8 @@ export class PostsService {
 
     })
   }
+
+
   deletePost(postId: string) {
     this.http.delete("http://localhost:3000/api/posts/" + postId)
     .subscribe(()=> {
