@@ -9,7 +9,7 @@ import  { HttpClientModule } from "@angular/common/http";
 import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule } from '@angular/material'
 import { HeaderComponent } from './header/header.component';
 import { PostsService } from './posts/post.service';
-import { AppRoutingModule } from './routing.module';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
