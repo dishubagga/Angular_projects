@@ -11,13 +11,16 @@ import { HeaderComponent } from './header/header.component';
 import { PostsService } from './posts/post.service';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     PostListComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
+    
   ],
   imports: [
     BrowserModule,
