@@ -31,8 +31,11 @@ router.post("/signup", (req, res, next)=> {
 });
 
 router.post("/login",(req, res, next) => {
+    
     User.findOne({ email: req.body.email})
     .then(user => {
+
+        console.log(user);
         if(!user){
             return res.status(401).json({
                 message: "Auth Failed"
@@ -41,7 +44,8 @@ router.post("/login",(req, res, next) => {
         return bcrypt.compare(REQ.BODY.password, user.password);
 
     })
-    .then(reult => {
+    .then(result => {
+        console.log(result);
         if(!result){
             return res.status(401).json({
                 message: "Auth Failed"
@@ -51,7 +55,10 @@ router.post("/login",(req, res, next) => {
             {email: user.email, userId: user._id},
             'secret_this_shoul_be_longer', 
             {expiresIn: "1h"}
-            );
+        );
+        res.status(200).json({
+            token: token
+        })
 
     })
     .catch(err => {
