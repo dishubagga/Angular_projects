@@ -7,10 +7,12 @@ var User        = require("./app/models/user");
 var bodyParser  = require("body-parser");
 var router      = express.Router();
 var appRoutes   = require('./app/routes/api')(router);
+var path        = require('path');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.static(__dirname + '/public')); // this let front end access the backend files
 app.use('/api',appRoutes);
 
 
@@ -24,9 +26,9 @@ mongoose.connect('mongodb://localhost:27017/tutorial', (err)=> {
     }
 });
 
-
-
-
+app.get('*', (req, res)=> {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'))
+})
 
 app.listen(port, function(){
     console.log("running server on port " + port);
