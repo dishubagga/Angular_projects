@@ -5,11 +5,14 @@ var morgan      = require("morgan");
 var mongoose    = require("mongoose");
 var User        = require("./app/models/user");
 var bodyParser  = require("body-parser");
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
+var router      = express.Router();
+var appRoutes   = require('./app/routes/api')(router);
 
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use('/api',appRoutes);
+
 
 mongoose.connect('mongodb://localhost:27017/tutorial', (err)=> {
     if(err){
@@ -21,27 +24,7 @@ mongoose.connect('mongodb://localhost:27017/tutorial', (err)=> {
     }
 });
 
-app.post('/users', (req,res)=> {
-    var user = new User();
-    user.username   = req.body.username;
-    user.password   = req.body.password;
-    user.email      = req.body.email;
-    if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' ){
-        res.send("Ensure username, email, password is provided");
-    }
-    else {
-        user.save((err)=>{
-            if(err){
-                res.send("username or email already exsist");
-            }
-            else{
-                res.send("user created");
-            }
-        })
-    }
-   
-    
-})
+
 
 
 
