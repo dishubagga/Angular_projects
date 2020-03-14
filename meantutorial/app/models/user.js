@@ -10,7 +10,7 @@ var UserSchema = new Schema({
 })
 
 
-UserSchema.pre('save', (next)=> {
+UserSchema.pre('save', function(next){
     var user = this;
     console.log("this username" + user.username);
     bcrypt.hash(user.password, null, null, (err, hash)=>{
