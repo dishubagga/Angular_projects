@@ -1,1 +1,4 @@
-console.log("testing main app config");
+angular.module('userApp', ['appRoutes'])
+.config(function(){
+    console.log("testing user application");
+})
