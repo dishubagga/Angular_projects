@@ -1,6 +1,6 @@
 angular.module('userControllers', [])
 
-.controller('regCtrl', function($http) {
+.controller('regCtrl', function($http, $location) {
     var app = this;
     
     this.regUser = function(regData){
@@ -15,7 +15,7 @@ angular.module('userControllers', [])
                 app.loading     = false;  
                 console.log("successssssss");
                 app.successMsg  = data.data.message;
-                
+                $location.path('/');
             }
             else {
                 app.loading     = false; 
