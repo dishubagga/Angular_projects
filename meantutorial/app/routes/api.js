@@ -18,7 +18,7 @@ module.exports = (router)=>{
                     
                 }
                 else{
-                    res.json({ success: false, message: "user created"});
+                    res.json({ success: true, message: "user created"});
                 }
             })
         }

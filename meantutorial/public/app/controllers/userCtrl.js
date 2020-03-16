@@ -10,7 +10,9 @@ angular.module('userControllers', [])
             console.log(data.data.success);
             console.log(data.data.message);
             if(data.data.success){
-                app.successMsg = data.data.msg;
+                console.log("successssssss");
+                app.successMsg = data.data.message;
+                
             }
             else {
                 app.errorMsg = data.data.message;
