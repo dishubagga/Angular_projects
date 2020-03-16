@@ -4,18 +4,22 @@ angular.module('userControllers', [])
     var app = this;
     
     this.regUser = function(regData){
-        console.log("testing new button");
+        app.loading     = true;
+        app.successMsg  = false; 
+        app.errorMsg    = false;
         console.log(this.regData);
         $http.post('/api/users', this.regData).then(function(data){
             console.log(data.data.success);
             console.log(data.data.message);
             if(data.data.success){
+                app.loading     = false;  
                 console.log("successssssss");
-                app.successMsg = data.data.message;
+                app.successMsg  = data.data.message;
                 
             }
             else {
-                app.errorMsg = data.data.message;
+                app.loading     = false; 
+                app.errorMsg    = data.data.message;
             }
         })
     }
