@@ -9,15 +9,16 @@ module.exports = (router)=>{
         user.password   = req.body.password;
         user.email      = req.body.email;
         if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' ){
-            res.send("Ensure username, email, password is provided");
+            res.json({ success: false, message: "Ensure username, email, password is provided"});
         }
         else {
             user.save((err)=>{
                 if(err){
-                    res.send("username or email already exsist");
+                    res.json({ success: false, message: "username or email already exsist"});
+                    
                 }
                 else{
-                    res.send("user created");
+                    res.json({ success: false, message: "user created"});
                 }
             })
         }
