@@ -3,9 +3,9 @@ angular.module('authServices', [])
     authFactory = {};
 
     
-    authFactory.login = function(regData){
-      return $http.post('/api/users', regData);  
+    authFactory.login = function(loginData){
+      return $http.post('/api/authenticate', loginData);  
     }
-    return userFactory;
+    return authFactory;
 
 })
