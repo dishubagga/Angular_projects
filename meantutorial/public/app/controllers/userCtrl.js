@@ -25,16 +25,5 @@ angular.module('userControllers', ['userServices'])
             }
         })
     }
-
-})
-
-.controller('googleCtrl', function($routeParams, Auth, $location, $window){
-    var app = this;
-    if($window.location.pathname == '/googleerror'){
-        app.errorMsg = 'Google email not found in db';
-    } else {
-        Auth.facebook($routeParams.token);
-        $location.path('/');
-    }
 })
 

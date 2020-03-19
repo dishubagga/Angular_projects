@@ -1,5 +1,5 @@
 angular.module('mainController', ['authServices'])
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $window){
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope){
     var app = this;
     app.loadme = false;
     $rootScope.$on('$routeChangeStart', function(){
@@ -21,14 +21,7 @@ angular.module('mainController', ['authServices'])
             app.loadme = true;
         }
     });
-    this.twitter = function() {
-        console.log($window.location.host); //localhost:8080
-        console.log($window.location.protocol);
-        $window.$location = $window.location.protocol + '//' + $window.location.host + '/auth/twitter';
-    }
-    this.google = function(){
-        $window.location = $window.location.protocol + '//' + $window.location.host + '/auth/google';
-    }
+    
     this.doLogin = function(loginData){
         app.loading     = true;
         app.successMsg  = false; 

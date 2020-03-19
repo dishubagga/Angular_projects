@@ -22,16 +22,6 @@ angular.module('appRoutes', ['ngRoute'])
     .when('/logout', {
         templateUrl: 'app/views/pages/users/logout.html'
     })
-    .when('/google/:token', {
-        templateUrl: 'app/views/pages/users/social/social.html' ,
-        controller: 'googleCtrl',
-        controllerAs: 'google'
-    })
-    .when('/googleerror', {
-        templateUrl: 'app/views/pages/users/social/login.html' ,
-        controller: 'googleCtrl',
-        controllerAs: 'google'
-    })
     .otherwise({ $redirectTo: '/'});
 
     $locationProvider.html5Mode({ //used to remove # from uri
