@@ -8,15 +8,18 @@ mongoose.connect('mongodb://localhost:27017/epicchat',{useNewUrlParser: true});
 const server        = require('http').Server(app);
 const io            = require('socket.io')(server);
 
+io.on('connection', (socket)=>{
+    console.log('new user connected');
+    socket.on('new message', (data)=>{
+        console.log(data);
+    }) // listen to any event
+})
 
 
 mongoose.promise    = global.Promise; //used promise and global to use mongoose anywhere as Async when writing mongoose.
 app.use(bodyParser.json()); // it will parse all the incoming and outgoing request with json parser
 app.use(express.static(path.join(__dirname, '../dist'))); //directory of static files 
 
-io.on('connection', (socket)=>{
-    console.log('new user connected');
-})
 
 
 const Message       = require('./models/message');
