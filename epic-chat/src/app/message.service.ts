@@ -12,5 +12,8 @@ export class MessageService {
             console.log('connectd to server');
         });
         this.socket.emit('new message', 'hey'); //create emit and event
+        this.socket.on('message received', (data)=>{
+            console.log(data);
+        })
     }
 }

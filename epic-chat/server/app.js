@@ -11,7 +11,8 @@ const io            = require('socket.io')(server);
 io.on('connection', (socket)=>{
     console.log('new user connected');
     socket.on('new message', (data)=>{
-        console.log(data);
+        socket.emit('message received', 'data from server'); // to send data to client again
+
     }) // listen to any event
 })
 
