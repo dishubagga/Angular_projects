@@ -3,15 +3,23 @@ const bodyParser    = require('body-parser');
 const path          = require('path');
 const app           = express();
 const mongoose      = require('mongoose');
-
 mongoose.connect('mongodb://localhost:27017/epicchat',{useNewUrlParser: true});
-mongoose.promise    = global.Promise; //used promise and global to use mongoose anywhere as Async when writing mongoose.
+//these both are for web sockets
+const server        = require('http').Server(app);
+const io            = require('socket.io')(server);
 
+
+
+mongoose.promise    = global.Promise; //used promise and global to use mongoose anywhere as Async when writing mongoose.
 app.use(bodyParser.json()); // it will parse all the incoming and outgoing request with json parser
 app.use(express.static(path.join(__dirname, '../dist'))); //directory of static files 
 
-const Message       = require('./models/message');
+io.on('connection', (socket)=>{
+    console.log('new user connected');
+})
 
+
+const Message       = require('./models/message');
 app.get('/api/chat', (req, res) => {
     Message.find().then(rec =>{ //return any record in msg collection 
         if(rec){
@@ -22,6 +30,7 @@ app.get('/api/chat', (req, res) => {
         }
     })
 })
+
 app.post('/api/chat', (req, res) => {
     const newMessage = new Message({
         _id: mongoose.Types.ObjectId(),
@@ -39,4 +48,4 @@ app.post('/api/chat', (req, res) => {
 })
 
 
-app.listen(3000, ()=> console.log('Listening on Port 3000'));
+server.listen(3000, ()=> console.log('Listening on Port 3000'));

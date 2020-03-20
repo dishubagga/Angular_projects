@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MessageService } from './message.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +12,9 @@ export class AppComponent {
     'Hello',
     'How are you',
     'Im good, what abou you?'
+   
   ];
+  constructor(message: MessageService){}
   addChat() {
     if(this.message.length === 0){
       return
