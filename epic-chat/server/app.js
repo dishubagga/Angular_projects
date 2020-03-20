@@ -9,11 +9,24 @@ const server        = require('http').Server(app);
 const io            = require('socket.io')(server);
 
 io.on('connection', (socket)=>{
+    user = '';
     console.log('new user connected');
     socket.on('new message', (data)=>{
-        socket.emit('message received', 'data from server'); // to send data to client again
+        socket.emit('message received', 'data from server data'); // to send data to client again
 
     }) // listen to any event
+    socket.on('new user', (data)=>{
+        user    = user;
+        Message.find().then(rec =>{ //return any record in msg collection 
+            if(rec){
+                socket.emit('all messages', rec)
+            }
+            else{
+                
+            }
+        })
+
+    })
 })
 
 

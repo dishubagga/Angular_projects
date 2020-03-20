@@ -8,13 +8,18 @@ import { MessageService } from './message.service';
 export class AppComponent {
   title = 'Epic Chat';
   message = '';
-  chats = [
-    'Hello',
-    'How are you',
-    'Im good, what abou you?'
-   
-  ];
-  constructor(message: MessageService){}
+  chats = [];
+  username;
+  user;
+  constructor(private messageService: MessageService){
+    this.messageService.getChats().subscribe((data) => {
+      this.chats  = data;
+      window.setTimeout(() => {
+        const elem      = document.getElementById('scrolldiv');
+        elem.scrollTop  = elem.scrollHeight;
+      }, 500);
+    })
+  }
   addChat() {
     if(this.message.length === 0){
       return
@@ -27,7 +32,10 @@ export class AppComponent {
         elem.scrollTop = elem.scrollHeight;
       }, 500)
       
-    }
-    
+    }   
+  }
+  addUser(user){
+    this.messageService.addUser(user);
+    this.username = user;
   }
 }
