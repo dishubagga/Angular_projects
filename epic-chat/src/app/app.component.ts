@@ -22,17 +22,11 @@ export class AppComponent {
   }
   addChat() {
     if(this.message.length === 0){
-      return
-    }else {
-      this.chats.push(this.message);
-      this.message = '';
-
-      window.setInterval(()=>{
-        const elem =  document.getElementById('scrolldiv'); //this is used for scroll down 
-        elem.scrollTop = elem.scrollHeight;
-      }, 500)
+      return;
+    }
+    this.messageService.addChat(this.message);
+    this.message = '';  
       
-    }   
   }
   addUser(user){
     this.messageService.addUser(user);

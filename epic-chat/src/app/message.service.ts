@@ -18,7 +18,8 @@ export class MessageService {
             console.log('connectd to server');
         });
         this.socket.on('message received', (data)=>{
-            console.log(data);
+            this._chats.push(data); 
+            this._chatssub.next([...this._chats]);
         })
         this.socket.on('all messages', (data) =>{
             this._chats = [...data]; // this will pass array of data  to chats

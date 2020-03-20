@@ -9,14 +9,27 @@ const server        = require('http').Server(app);
 const io            = require('socket.io')(server);
 
 io.on('connection', (socket)=>{
-    user = '';
-    console.log('new user connected');
-    socket.on('new message', (data)=>{
-        socket.emit('message received', 'data from server data'); // to send data to client again
+    let user = '';
+    socket.on('new message', (data)=>{ //listen to new user event
+        const newMessage = new Message({
+            _id: mongoose.Types.ObjectId(),
+            message: data,
+            user: user
+        })
+        newMessage.save().then(rec =>{ //return any record in msg collection 
+            if(rec){
+                
+                io.emit('message received', rec); // to send data to client again // instead of socket emit we will use io emit so that it can emit to everybody connected
+            }
+            else{
+                
+            }
+        })
 
-    }) // listen to any event
-    socket.on('new user', (data)=>{
-        user    = user;
+    })                 
+    socket.on('new user', (data)=>{  // listen to new user event
+        user    = data;
+        console.log('new user connected');
         Message.find().then(rec =>{ //return any record in msg collection 
             if(rec){
                 socket.emit('all messages', rec)
@@ -51,7 +64,7 @@ app.get('/api/chat', (req, res) => {
 app.post('/api/chat', (req, res) => {
     const newMessage = new Message({
         _id: mongoose.Types.ObjectId(),
-        message: req.body,
+        message: req.body.message,
         user: 'user'
     })
     newMessage.save().then(rec =>{ //return any record in msg collection 
