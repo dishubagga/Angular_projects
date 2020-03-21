@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { User } from '../user';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  user: User = {
+    fullName: '',
+    email: '',
+    password:''
+  };
   constructor() { }
 
   ngOnInit(): void {
+  }
+  register(theUser){
+    console.log(theUser);
   }
 
 }
