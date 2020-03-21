@@ -10,12 +10,14 @@ const io            = require('socket.io')(server);
 
 io.on('connection', (socket)=>{
     let user = '';
+ 
     socket.on('new message', (data)=>{ //listen to new user event
         const newMessage = new Message({
             _id: mongoose.Types.ObjectId(),
             message: data,
             user: user
         })
+        console.log(user + " is in user ");
         newMessage.save().then(rec =>{ //return any record in msg collection 
             if(rec){
                 
@@ -30,6 +32,7 @@ io.on('connection', (socket)=>{
     socket.on('new user', (data)=>{  // listen to new user event
         user    = data;
         console.log('new user connected');
+        socket.broadcast.emit('user connected', data); //this will send event to everyone execpt that particular user who is connected
         Message.find().then(rec =>{ //return any record in msg collection 
             if(rec){
                 socket.emit('all messages', rec)
@@ -39,6 +42,9 @@ io.on('connection', (socket)=>{
             }
         })
 
+    })
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('user disconnected', user);
     })
 })
 

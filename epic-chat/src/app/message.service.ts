@@ -24,11 +24,21 @@ export class MessageService {
         this.socket.on('all messages', (data) =>{
             this._chats = [...data]; // this will pass array of data  to chats
             this._chatssub.next([...this._chats]); //this will add _chats to _chatssub
-        })    
+        })
+        this.socket.on('user connected', (data) =>{
+            this._chats.push({message: `${data} connected`, type:'notify'}); 
+            this._chatssub.next([...this._chats]); //this will add _chats to _chatssub
+        })
+        this.socket.on('user disconnected', (data) =>{
+            this._chats.push({message: `${data} disconnected`, type:'notify'});
+            this._chatssub.next([...this._chats]); //this will add _chats to _chatssub
+        })
+
 
     }
     addChat(message){
         this.socket.emit('new message', message);
+        
     }
     addUser(user){
         this.socket.emit('new user', user);

@@ -26,6 +26,7 @@ export class AppComponent {
     }
     this.messageService.addChat(this.message);
     this.message = '';  
+  
       
   }
   addUser(user){
