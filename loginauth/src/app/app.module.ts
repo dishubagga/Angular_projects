@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; 
 import { DashboardModule } from './dashboard/dashboard.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 //components imports
 import { AppComponent } from './app.component';
@@ -26,7 +28,8 @@ import { APP_ROUTES } from './app.routes';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(APP_ROUTES),
-    DashboardModule
+    DashboardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

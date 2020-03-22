@@ -1,11 +1,12 @@
-const express       = require('express');
-const app           = express();
+const express           = require('express');
+const app               = express();
 
-const bodyParser    = require('body-parser');
-const path          = require('path');
-const mongoose      = require("mongoose");
-const config        = require('./config');
-const User          = require('./models/user');
+const bodyParser        = require('body-parser');
+const path              = require('path');
+const mongoose          = require("mongoose");
+const config            = require('./config');
+
+const User              = require('./models/user');
 
 mongoose.promise    = global.Promise; //This means that you can do things like MyModel.findOne({}).then() and await MyModel.findOne({}).exec() 
 mongoose.connect(

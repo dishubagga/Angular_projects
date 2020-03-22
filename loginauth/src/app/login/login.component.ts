@@ -18,8 +18,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   login(theUser: User){
-    this.authService.login(theUser);
-    this._router.navigate(['/dashboard']);
+    this.authService.login(theUser).subscribe(data => {
+      console.log("raw data "+data);
+      this._router.navigate(['/dashboard']);
+      localStorage.setItem('user', JSON.stringify(data));
+      console.log("stringify data "+JSON.stringify(data));
+    });
+    
   }
 
 }
