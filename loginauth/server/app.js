@@ -1,7 +1,8 @@
 const express       = require('express');
+const app           = express();
+
 const bodyParser    = require('body-parser');
 const path          = require('path');
-const app           = express();
 const mongoose      = require("mongoose");
 const config        = require('./config');
 const User          = require('./models/user');
@@ -16,25 +17,26 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')))
 
 app.post('/register', (req, res)=>{
-    const useNewUser    = new User({
-        name:   req.body.fullname,
+    const newUser    = new User({
+        name:   req.body.fullName,
         email:   req.body.email,
-        password:   req.body.password
+        //password: req.body.password
     })
-    useNewUser.save().then(rec =>{
+    newUser.password = newUser.generateHash(req.body.password);
+    newUser.save().then(rec =>{
         res.status(201).json(rec)
     })
 })
 
 app.post('/login', (req, res)=>{
-    User.findOne({email:   req.body.email}).then(rec =>{
-        if(!rec){
+    User.findOne({email:   req.body.email}).then(loginUser =>{
+        if(!loginUser){
            return res.status(401).json({ message: 'Invalid username or password'});
         }
-        if(res.password != res.body.password){
+        if(!loginUser.validatePassword(req.body.password)){
            return res.status(401).json({ message: 'Invalid username or password'});  
         }
-        res.status(200).json(rec);
+        res.status(200).json(loginUser);
 
     })
 })
