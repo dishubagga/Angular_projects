@@ -5,6 +5,7 @@ const bodyParser        = require('body-parser');
 const path              = require('path');
 const mongoose          = require("mongoose");
 const config            = require('./config');
+const authenticate      = require('./authenticate');
 
 const User              = require('./models/user');
 
@@ -37,11 +38,13 @@ app.post('/login', (req, res)=>{
         if(!loginUser.validatePassword(req.body.password)){
            return res.status(401).json({ message: 'Invalid username or password'});  
         }
-        res.status(200).json(loginUser);
+        const withToken = {email: loginUser.email, _id: loginUser._id};
+        withToken.token = loginUser.generateJWT();
+        res.status(200).json(withToken);
 
     })
 })
-app.get('/users', (req, res)=>{
+app.get('/users', authenticate, (req, res)=>{
     User.find().then(rec =>{
         
         res.status(200).json(rec);

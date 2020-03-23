@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
   }
   login(theUser: User){
     this.authService.login(theUser).subscribe(data => {
-      console.log("raw data "+data);
+      console.log(data);
       this._router.navigate(['/dashboard']);
       localStorage.setItem('user', JSON.stringify(data));
-      console.log("stringify data "+JSON.stringify(data));
+      //console.log("stringify data "+JSON.stringify(data));
     });
     
   }
