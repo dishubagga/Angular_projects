@@ -9,7 +9,7 @@ const authenticate      = require('./authenticate');
 
 const User              = require('./models/user');
 
-mongoose.promise    = global.Promise; //This means that you can do things like MyModel.findOne({}).then() and await MyModel.findOne({}).exec() 
+mongoose.promise    = global.Promise; //This means that you can do things like MyModel.findOne({}).then() and await MyModel.findOne({}).exec()
 mongoose.connect(
     config.mongoURL,
     { useNewUrlParser: true}
@@ -36,7 +36,7 @@ app.post('/login', (req, res)=>{
            return res.status(401).json({ message: 'Invalid username or password'});
         }
         if(!loginUser.validatePassword(req.body.password)){
-           return res.status(401).json({ message: 'Invalid username or password'});  
+           return res.status(401).json({ message: 'Invalid username or password'});
         }
         const withToken = {email: loginUser.email, _id: loginUser._id};
         withToken.token = loginUser.generateJWT();
@@ -46,7 +46,7 @@ app.post('/login', (req, res)=>{
 })
 app.get('/users', authenticate, (req, res)=>{
     User.find().then(rec =>{
-        
+
         res.status(200).json(rec);
 
     })
@@ -60,4 +60,4 @@ app.get("*", (req, res)=>{
 })
 
 
-app.listen(3000, ()=>console.log('Listening on port 30000'));
+app.listen(3000, ()=>console.log('Listening on port 3000'));
